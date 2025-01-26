@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fff5f5, #ffd6e0);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .background-flowers {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .flower {
+            position: absolute;
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-20px) rotate(20deg); 
+            }
+        }
+
+        .card {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            animation: cardFloat 3s ease-in-out infinite;
+            position: relative;
+            border: 2px solid #ff4d6d;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #ffc2c2);
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        .card h1 {
+            color: #ff4d6d;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card p {
+            color: #4a4a4a;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .details {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 77, 109, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 77, 109, 0.2);
+        }
+
+        .accept-btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff8fa3);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+        }
+
+        .accept-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.3);
+        }
+
+        .celebration-flower {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            animation: celebrate 2s ease-out forwards;
+        }
+
+        @keyframes celebrate {
+            0% {
+                transform: translateY(0) scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .success-message {
+            display: none;
+            color: #ff4d6d;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-flowers"></div>
+    
+    <div class="card">
+        <h1>Will You Be My Valentine? 💝</h1>
+        <div class="details">
+            <p>I would love for you to join me for a special evening at:</p>
+            <p><strong>The Feather Blade</strong></p>
+            <p>February 13th, 2025</p>
+            <p>6:30 PM</p>
+        </div>
+        <button class="accept-btn">Yes! 💝</button>
+        <div class="success-message">Can't wait to see you! 💖</div>
+    </div>
+
+    <script>
+        // Create floating background flowers
+        const backgroundFlowers = document.querySelector('.background-flowers');
+        const flowerTypes = ['🌸', '🌺', '🌷', '🌹'];
+        
+        for (let i = 0; i < 20; i++) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.innerHTML = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.top = Math.random() * 100 + 'vh';
+            flower.style.animationDelay = Math.random() * 5 + 's';
+            backgroundFlowers.appendChild(flower);
+        }
+
+        // Accept button click handler
+        const acceptBtn = document.querySelector('.accept-btn');
+        const successMessage = document.querySelector('.success-message');
+
+        acceptBtn.addEventListener('click', () => {
+            createCelebration();
+            acceptBtn.style.display = 'none';
+            successMessage.style.display = 'block';
+        });
+
+        function createCelebration() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.className = 'celebration-flower';
+                    flower.innerHTML = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+                    flower.style.left = Math.random() * 100 + 'vw';
+                    flower.style.bottom = '0';
+                    document.body.appendChild(flower);
+                    
+                    // Remove flower after animation
+                    setTimeout(() => flower.remove(), 2000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
